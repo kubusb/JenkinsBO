@@ -2,19 +2,8 @@ pipeline {
   agent any
   stages {
     stage('CheckoutCode') {
-      parallel {
-        stage('CheckoutCode') {
-          steps {
-            git(branch: 'master', url: 'https://github.com/kubusb/gol', poll: true)
-          }
-        }
-
-        stage('Inform') {
-          steps {
-            timestamps()
-          }
-        }
-
+      steps {
+        git(branch: 'master', url: 'https://github.com/kubusb/gol', poll: true)
       }
     }
 
@@ -27,7 +16,7 @@ pipeline {
       }
     }
 
-    stage('') {
+    stage('error') {
       steps {
         emailext(subject: 'Build complete', body: 'Build completed', attachLog: true, compressLog: true, from: 'jenkins@redbit.pl', to: 'jenkins@redbit.pl')
       }
